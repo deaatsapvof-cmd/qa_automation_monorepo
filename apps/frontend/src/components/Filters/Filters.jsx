@@ -8,6 +8,13 @@ import s from './Filters.module.css';
 import sprite from '../../assets/icon/sprite.svg';
 import Select, { components } from 'react-select';
 
+const MenuList = props => (
+  <components.MenuList
+    {...props}
+    innerProps={{ ...props.innerProps, 'data-testid': 'react-select-listbox' }}
+  />
+);
+
 export default function Filters({
   onApplyFilters,
   currentFilters,
@@ -121,137 +128,142 @@ export default function Filters({
               hasActiveFilters ? s.resetLinkBtnUnderlined : ''
             }`}
             onClick={handleReset}
+            data-testid="Reset filters button"
             disabled={!hasActiveFilters}
           >
             Reset filters
           </button>
           <div className={s.selectsWrapper}>
-            <Select
-              classNamePrefix="custom-select"
-              options={categoryOptions}
-              value={selectedCategoryOption}
-              onChange={handleCategoryChange}
-              components={{ DropdownIndicator }}
-              isSearchable={false}
-              styles={{
-                container: base => ({
-                  ...base,
-                  width: isMobileOrTablet ? '296px' : '179px',
-                }),
-                control: (base, state) => ({
-                  ...base,
-                  minHeight: '33px',
-                  cursor: 'pointer',
-                  outline: 'none',
-                  borderColor: state.isFocused ? '#000' : '#d9d9d9',
-                  boxShadow: 'none',
-                  transition: 'border-color 0.3s ease-in-out',
-                  '&:hover': {
-                    borderColor: '#3d2218',
-                  },
-                }),
-                placeholder: base => ({
-                  ...base,
-                  color: '#595d62',
-                }),
-                singleValue: base => ({
-                  ...base,
-                  color: '#595d62',
-                }),
+            <div data-testid="Category dropdown filter">
+              <Select
+                classNamePrefix="custom-select"
+                options={categoryOptions}
+                value={selectedCategoryOption}
+                onChange={handleCategoryChange}
+                components={{ DropdownIndicator, MenuList }}
+                isSearchable={false}
+                styles={{
+                  container: base => ({
+                    ...base,
+                    width: isMobileOrTablet ? '296px' : '179px',
+                  }),
+                  control: (base, state) => ({
+                    ...base,
+                    minHeight: '33px',
+                    cursor: 'pointer',
+                    outline: 'none',
+                    borderColor: state.isFocused ? '#000' : '#d9d9d9',
+                    boxShadow: 'none',
+                    transition: 'border-color 0.3s ease-in-out',
+                    '&:hover': {
+                      borderColor: '#3d2218',
+                    },
+                  }),
+                  placeholder: base => ({
+                    ...base,
+                    color: '#595d62',
+                  }),
+                  singleValue: base => ({
+                    ...base,
+                    color: '#595d62',
+                  }),
 
-                indicatorContainer: (base, state) => ({
-                  ...base,
-                  color: '#000000',
-                  opacity: 1,
-                  ':hover': {
+                  indicatorContainer: (base, state) => ({
+                    ...base,
                     color: '#000000',
-                  },
-                }),
-                dropdownIndicator: (base, state) => ({
-                  ...base,
-                  color: '#000000',
-                  opacity: 1,
-                }),
-                indicatorSeparator: base => ({
-                  ...base,
-                  display: 'none',
-                }),
-                option: (base, state) => ({
-                  ...base,
-                  backgroundColor:
-                    state.isFocused || state.isSelected
-                      ? '#d3d3d3'
-                      : 'transparent',
-                  color: '#000',
-                  '&:active': {
-                    backgroundColor: '#c0c0c0',
-                  },
-                }),
-              }}
-            />
-            <Select
-              classNamePrefix="custom-select"
-              options={ingredientOptions}
-              value={selectedIngredientOption}
-              onChange={handleIngredientChange}
-              components={{ DropdownIndicator }}
-              isSearchable={false}
-              styles={{
-                container: base => ({
-                  ...base,
-                  width: isMobileOrTablet ? '296px' : '179px',
-                }),
-                control: (base, state) => ({
-                  ...base,
-                  minHeight: '33px',
-                  cursor: 'pointer',
-                  outline: 'none',
-                  borderColor: state.isFocused ? '#000' : '#d9d9d9',
-                  boxShadow: 'none',
-                  transition: 'border-color 0.3s ease-in-out',
-                  '&:hover': {
-                    borderColor: '#3d2218',
-                  },
-                }),
-                placeholder: base => ({
-                  ...base,
-                  color: '#595d62',
-                }),
-                singleValue: base => ({
-                  ...base,
-                  color: '#595d62',
-                }),
+                    opacity: 1,
+                    ':hover': {
+                      color: '#000000',
+                    },
+                  }),
+                  dropdownIndicator: (base, state) => ({
+                    ...base,
+                    color: '#000000',
+                    opacity: 1,
+                  }),
+                  indicatorSeparator: base => ({
+                    ...base,
+                    display: 'none',
+                  }),
+                  option: (base, state) => ({
+                    ...base,
+                    backgroundColor:
+                      state.isFocused || state.isSelected
+                        ? '#d3d3d3'
+                        : 'transparent',
+                    color: '#000',
+                    '&:active': {
+                      backgroundColor: '#c0c0c0',
+                    },
+                  }),
+                }}
+              />
+            </div>
+            <div data-testid="Ingredients dropdown filter">
+              <Select
+                classNamePrefix="custom-select"
+                options={ingredientOptions}
+                value={selectedIngredientOption}
+                onChange={handleIngredientChange}
+                components={{ DropdownIndicator, MenuList }}
+                isSearchable={false}
+                styles={{
+                  container: base => ({
+                    ...base,
+                    width: isMobileOrTablet ? '296px' : '179px',
+                  }),
+                  control: (base, state) => ({
+                    ...base,
+                    minHeight: '33px',
+                    cursor: 'pointer',
+                    outline: 'none',
+                    borderColor: state.isFocused ? '#000' : '#d9d9d9',
+                    boxShadow: 'none',
+                    transition: 'border-color 0.3s ease-in-out',
+                    '&:hover': {
+                      borderColor: '#3d2218',
+                    },
+                  }),
+                  placeholder: base => ({
+                    ...base,
+                    color: '#595d62',
+                  }),
+                  singleValue: base => ({
+                    ...base,
+                    color: '#595d62',
+                  }),
 
-                indicatorContainer: (base, state) => ({
-                  ...base,
-                  color: '#000000',
-                  opacity: 1,
-                  ':hover': {
+                  indicatorContainer: (base, state) => ({
+                    ...base,
                     color: '#000000',
-                  },
-                }),
-                dropdownIndicator: (base, state) => ({
-                  ...base,
-                  color: '#000000',
-                  opacity: 1,
-                }),
-                indicatorSeparator: base => ({
-                  ...base,
-                  display: 'none',
-                }),
-                option: (base, state) => ({
-                  ...base,
-                  backgroundColor:
-                    state.isFocused || state.isSelected
-                      ? '#d3d3d3'
-                      : 'transparent',
-                  color: '#000',
-                  '&:active': {
-                    backgroundColor: '#c0c0c0',
-                  },
-                }),
-              }}
-            />
+                    opacity: 1,
+                    ':hover': {
+                      color: '#000000',
+                    },
+                  }),
+                  dropdownIndicator: (base, state) => ({
+                    ...base,
+                    color: '#000000',
+                    opacity: 1,
+                  }),
+                  indicatorSeparator: base => ({
+                    ...base,
+                    display: 'none',
+                  }),
+                  option: (base, state) => ({
+                    ...base,
+                    backgroundColor:
+                      state.isFocused || state.isSelected
+                        ? '#d3d3d3'
+                        : 'transparent',
+                    color: '#000',
+                    '&:active': {
+                      backgroundColor: '#c0c0c0',
+                    },
+                  }),
+                }}
+              />
+            </div>
           </div>
         </>
       )}

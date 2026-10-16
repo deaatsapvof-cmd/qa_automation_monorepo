@@ -28,6 +28,7 @@ export const SearchForm = ({ onSubmit }) => {
       <div className={styles.inputGroup}>
         <input
           type="text"
+          data-testid="Search input"
           placeholder="Search recipes"
           className={`${styles.searchInput} ${error ? styles.errorBorder : ''}`}
           value={query}
@@ -37,7 +38,11 @@ export const SearchForm = ({ onSubmit }) => {
           <div className={styles.errorText}>Please enter search query</div>
         )}
       </div>
-      <button type="submit" className={styles.searchButton}>
+      <button
+        type="submit"
+        data-testid="Search button"
+        className={styles.searchButton}
+      >
         Search
       </button>
     </form>
