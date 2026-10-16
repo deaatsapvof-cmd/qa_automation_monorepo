@@ -66,8 +66,10 @@ const RecipeCard = ({ recipe, type, onRemove }) => {
 
       <div className={styles.content}>
         <div className={styles.headerRow}>
-          <p className={styles.title}>{recipe.title}</p>
-          <div className={styles.timeBox}>
+          <p className={styles.title} data-testid="Recipe title">
+            {recipe.title}
+          </p>
+          <div className={styles.timeBox} data-testid="Recipe timebox">
             <svg className={styles.timeIcon}>
               <use href={`${sprite}#icon-clock`} />
             </svg>
@@ -75,9 +77,16 @@ const RecipeCard = ({ recipe, type, onRemove }) => {
           </div>
         </div>
         {recipe.description && (
-          <p className={styles.description}>{recipe.description}</p>
+          <p className={styles.description} data-testid="Recipe description">
+            {recipe.description}
+          </p>
         )}
-        {calories && <p className={styles.calories}> {renderCalories()}</p>}
+        {calories && (
+          <p className={styles.calories} data-testid="Recipe calories">
+            {' '}
+            {renderCalories()}
+          </p>
+        )}
         <div className={styles.buttons}>
           <button
             className={`${styles.learnMoreBtn} ${
@@ -91,6 +100,8 @@ const RecipeCard = ({ recipe, type, onRemove }) => {
             <button
               className={`${styles.saveBtn} ${styles.favBtn}`}
               onClick={() => onRemove(recipe.id)}
+              data-testid="Save recipe button"
+              data-action="selected"
               aria-label="Remove from favorites"
             >
               <svg className={styles.iconFavorite}>
@@ -103,6 +114,8 @@ const RecipeCard = ({ recipe, type, onRemove }) => {
                 isFavorite ? styles.activeIcon : ''
               }`}
               onClick={handleFavorite}
+              data-testid="Save recipe button"
+              data-action={isFavorite ? 'selected' : 'un-selected'}
               aria-label="Save recipe"
               disabled={isFavoriteLoading}
             >
